@@ -6,7 +6,7 @@ $_POST = json_decode($form_input, true);
 
 if (isset($_POST['submit'])) {
     $id = htmlspecialchars($_POST['id']);
-    $sql = "DELETE FROM `users` WHERE `id` = '${id}'";
+    $sql = "DELETE FROM `users` WHERE `id` = '$id'";
     if ($conn->query($sql)) {
         echo json_encode(['success' => 'User has been successfully deleted!']);
     } else {

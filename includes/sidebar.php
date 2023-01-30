@@ -1,13 +1,13 @@
 <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
-        <a class="sidebar-brand" href="show_students.php">
-            <span class="align-middle">Magicians</span>
+        <a class="sidebar-brand">
+            <span class="align-middle">Panel</span>
         </a>
 
         <ul class="sidebar-nav">
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="show_courses.php">
+                <a class="sidebar-link">
                     <i class="align-middle" data-feather="users"></i> <span class="align-middle">Users</span>
                 </a>
             </li>

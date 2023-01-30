@@ -14,11 +14,11 @@ if (isset($_POST['submit'])) {
     } elseif (empty($email)) {
         echo json_encode(['emptyEmail' => 'Please enter your email!']);
     } else {
-        $sql = "SELECT * FROM `users` WHERE `email` = '${email}' AND `id` != ${id}";
+        $sql = "SELECT * FROM `users`  WHERE `id` != $id AND  `email` = '$email'";
         $result = $conn->query($sql);
 
         if ($result->num_rows == 0) {
-            $sql = "UPDATE `users` SET `name` = '${name}',`email` = '${email}' WHERE `id` = ${id}";
+            $sql = "UPDATE `users` SET `name` = '$name',`email` = '$email' WHERE `id` = $id";
             if ($conn->query($sql)) {
                 echo json_encode(['success' => 'User has been successfully updated!']);
             } else {

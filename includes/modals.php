@@ -76,7 +76,7 @@
                 <form action="" method="POST" id="delete-user-form">
                     <div>Are your sure you want to delete this?</div>
                     <div>
-                        <input type="submit" value="Delete User" class="btn btn-danger" name="submit-delete">
+                        <input type="submit" value="Delete User" class="btn btn-danger" name="submit-delete"  data-bs-dismiss="modal">
                     </div>
                 </form>
 

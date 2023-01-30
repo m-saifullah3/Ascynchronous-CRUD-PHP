@@ -13,11 +13,11 @@ if (isset($_POST['submit'])) {
     } elseif (empty($email)) {
         echo json_encode(['emptyEmail' => 'Please enter your email!']);
     } else {
-        $sql = "SELECT * FROM `users` WHERE `email` = '${email}'";
+        $sql = "SELECT * FROM `users` WHERE `email` = '$email'";
         $result = $conn->query($sql);
 
         if ($result->num_rows == 0) {
-            $sql = "INSERT INTO `users` (`name`, `email`) VALUES ('${name}', '${email}')";
+            $sql = "INSERT INTO `users` (`name`, `email`) VALUES ('$name', '$email')";
             if ($conn->query($sql)) {
                 echo json_encode(['success' => 'User has been successfully added!']);
             } else {

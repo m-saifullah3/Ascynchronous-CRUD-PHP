@@ -1,3 +1,5 @@
+<?php require_once './database/connection.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,9 +52,6 @@
 
 				</div>
 			</main>
-
-			<?php require_once './includes/footer.php'; ?>
-
 		</div>
 	</div>
 
@@ -61,9 +60,19 @@
 	<?php require_once './includes/script.php'; ?>
 
 	<script>
-		const errorAdd = document.getElementById('error-add');
-		const successAdd = document.getElementById('success-add');
+		let btnAdd = document.getElementById('btn-add');
+		let btnEdit = document.getElementById('btn-edit');
+		let btnDelete = document.getElementById('btn-delete');
+		let errorAdd = document.getElementById('error-add');
+		let successAdd = document.getElementById('success-add');
 		const addUserForm = document.getElementById('add-user-form');
+		btnAdd.addEventListener('click', function() {
+			errorAdd.innerText = '';
+			successAdd.innerText = '';
+		})
+
+
+
 		addUserForm.addEventListener('submit', function(e) {
 			e.preventDefault();
 
@@ -125,7 +134,7 @@
 				const tBodyElement = document.getElementById('tbody');
 				let rows = "";
 				result.forEach(function(value) {
-					rows += `<tr><td>${value['name']}</td><td>${value['email']}</td><td>${value['created_at']}</td><td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editUser" onclick="editUser(${value['id']})">Edit User</button> <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteUser"onclick="deleteUser(${value['id']})">Delete User</button></td></tr>`;
+					rows += `<tr><td>${value['name']}</td><td>${value['email']}</td><td>${value['created_at']}</td><td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editUser" onclick="editUser(${value['id']})" id="btn-edit" >Edit User</button> <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteUser"onclick="deleteUser(${value['id']})" id="btn-delete" >Delete User</button></td></tr>`;
 				});
 				tBodyElement.innerHTML = rows;
 			})
@@ -152,18 +161,19 @@
 			}).then(function(response) {
 				return response.json();
 			}).then(function(result) {
-				const nameElementEdit = document.getElementById('name-edit');
-				const emailElementEdit = document.getElementById('email-edit');
+				let nameElementEdit = document.getElementById('name-edit');
+				let emailElementEdit = document.getElementById('email-edit');
 				nameElementEdit.setAttribute('value', result.name);
 				emailElementEdit.setAttribute('value', result.email);
 			});
-			
+
+
 			const editUserForm = document.getElementById('edit-user-form');
 			editUserForm.addEventListener('submit', function(e) {
 				e.preventDefault();
 
-				const nameElementEdit = document.getElementById('name-edit');
-				const emailElementEdit = document.getElementById('email-edit');
+				let nameElementEdit = document.getElementById('name-edit');
+				let emailElementEdit = document.getElementById('email-edit');
 				let nameValueEdit = nameElementEdit.value;
 				let emailValueEdit = emailElementEdit.value;
 
@@ -213,10 +223,13 @@
 		}
 
 		function deleteUser(id) {
-			
+
 			const errorDelete = document.getElementById('error-delete');
 			const successDelete = document.getElementById('success-delete');
 			const deleteUserForm = document.getElementById('delete-user-form');
+            errorDelete.innerText = successDelete.innerText = '';
+			
+
 			deleteUserForm.addEventListener('submit', function(e) {
 				e.preventDefault();
 				const data = {
@@ -233,13 +246,17 @@
 				}).then(function(response) {
 					return response.json();
 				}).then(function(result) {
-					if(result.success) {
+					if (result.success) {
 						successDelete.innerText = result.success;
 						showUsers();
-					} else if(result.failed) {
+					} else if (result.failed) {
 						errorDelete.innerText = result.failed;
 					}
 				});
+				btnDelete.addEventListener('click', function() {
+				errorDelete.innerText = '';
+				successDelete.innerText = '';
+			})
 			});
 		}
 	</script>
